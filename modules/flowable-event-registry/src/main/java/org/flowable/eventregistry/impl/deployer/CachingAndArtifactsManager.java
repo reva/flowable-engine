@@ -101,5 +101,13 @@ public class CachingAndArtifactsManager {
                                 eventRegistryEngineConfiguration.getEventRepositoryService(), eventRegistryEngineConfiguration.isFallbackToDefaultTenant());
             }
         }
+
+        if (channelModel instanceof OutboundChannelModel) {
+            if (((OutboundChannelModel) channelModel).getOutboundEventChannelAdapter() == null) {
+                throw new FlowableIllegalArgumentException(
+                    String.format("No outbound event channel adapter set for channel with key: %s. Are the required dependencies present for type: %s?"
+                        + channelModel.getKey(), channelModel.getType()));
+            }
+        }
     }
 }
